@@ -1,0 +1,59 @@
+server:
+  port: 9000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://servicio-eureka-server:8761/eureka
+    enabled: true
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+spring:
+  application:
+    name: service-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: servicio-usuarios
+        uri: lb://servicio-usuarios
+        predicates:
+          - Path=/api/usuarios/**
+        filters:
+        - StripPrefix=2
+      - id: servicio-oauth
+        uri: lb://servicio-oauth
+        predicates:
+          - Path=/api/security/**
+        filters:
+        - StripPrefix=2
+      - id: servicio-deportes
+        uri: lb://servicio-deportes
+        predicates:
+          - Path=/api/deportes/**
+        filters:
+        - StripPrefix=2
+      - id: server-categorias
+        uri: lb://server-categorias
+        predicates:
+          - Path=/api/categorias/**
+        filters:
+        - StripPrefix=2
+      - id: server-partidos
+        uri: lb://server-partidos
+        predicates:
+          - Path=/api/partidos/**
+        filters:
+        - StripPrefix=2
+      - id: server-posiciones
+        uri: lb://server-posiciones
+        predicates:
+          - Path=/api/posiciones/**
+        filters:
+        - StripPrefix=2
+        
+        
+ 

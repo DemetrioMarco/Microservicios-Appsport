@@ -1,0 +1,22 @@
+package servicio.commons.usuarios.entity;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+public class Utilitario {
+	
+	@Autowired
+	static
+	BCryptPasswordEncoder  passwordEncoder;
+	
+	public static String coder (String pass) {
+		try {
+			return passwordEncoder.encode(pass).toString();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return pass;
+	}
+
+}

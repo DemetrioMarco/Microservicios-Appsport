@@ -1,0 +1,5 @@
+package servicio.usuarios.security;
+
+public class SpringSecurityConfig {
+
+}
